@@ -2,26 +2,31 @@ const express=require("express");
 
 const app=express();
 
-app.use("/home",(req,res)=>{
-    res.send("use-server is active")
-})
-
-
-app.post("/home",(req,res)=>{
-    res.send("post-server is active")
-})
-app.delete("/home",(req,res)=>{
-    res.send("delete-server is active")
-})
-app.patch("/home",(req,res)=>{
-    res.send("patch-server is active")
-})
-
-
-
-app.get("/home",(req,res)=>{
-    res.send("get-server is active")
-})
+app.use("/home",(req,res,next)=>{
+    console.log("res-1");
+    // res.send("use-server-1 is active")
+    next()
+},
+[(req,res,next)=>{
+    console.log("res-2");
+    // res.send("use-server-2 is active")
+    next()
+},
+(req,res,next)=>{
+    console.log("res-3");
+    // res.send("use-server-3 is active")
+    next()
+}],
+(req,res,next)=>{
+    console.log("res-4");
+    // res.send("use-server-4 is active")
+    next()
+},
+(req,res,next)=>{
+    console.log("res-5");
+    res.send("use-server-5 is active")
+    
+});
 
 
 
