@@ -2,33 +2,29 @@ const express=require("express");
 
 const app=express();
 
-app.use("/home",(req,res,next)=>{
-    console.log("res-1");
-    // res.send("use-server-1 is active")
-    next()
-},
-[(req,res,next)=>{
-    console.log("res-2");
-    // res.send("use-server-2 is active")
-    next()
-},
-(req,res,next)=>{
-    console.log("res-3");
-    // res.send("use-server-3 is active")
-    next()
-}],
-(req,res,next)=>{
-    console.log("res-4");
-    // res.send("use-server-4 is active")
-    next()
-},
-(req,res,next)=>{
-    console.log("res-5");
-    res.send("use-server-5 is active")
+const {  authuser,
+    authadmin } =require("./middleware/auth")
     
+
+app.use("/user",authuser);
+app.use("/admin",authadmin);
+app.get("/user/data",(req,res)=>{
+    res.send("user data get..!");
+
+});
+
+app.get("/admin/data",(req,res)=>{
+    res.send("admin data get..!");
+
 });
 
 
+
+app.get("/home",(req,res)=>{
+    console.log("res-1");
+    res.send("Home-page");
+
+});
 
 
 
